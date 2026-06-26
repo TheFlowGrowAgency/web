@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowGrow | Growth Systems for Boutique Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Radley:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf6ea;
+  --cream-warm: #faf6ea;
+  --teal: #3eaaac;
+  --teal-dark: #003e53;
+  --teal-mid: #2d6e70;
+  --olive: #a9ad48;
+  --text: #003e53;
+  --muted: #7a7468;
+  --border: rgba(28,46,47,0.1);
+  --r: 40px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Radley', serif;
+  color: var(--text);
+  background: var(--cream);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--teal);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: multiply;
+}
+.cursor.big {
+  width: 40px; height: 40px;
+  background: var(--olive);
+  opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.6rem 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mix-blend-mode: normal;
+  transition: background 0.4s, padding 0.3s;
+}
+nav.scrolled {
+  background: rgba(250,246,234,0.96);
+  backdrop-filter: blur(12px);
+  padding: 1rem 3.5rem;
+}
+.nav-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #faf6ea;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+nav.scrolled .nav-logo { color: var(--text); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(250,248,242,0.8);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+nav.scrolled .nav-link { color: var(--muted); }
+.nav-link:hover { color: white; }
+nav.scrolled .nav-link:hover { color: var(--text); }
+.nav-cta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--teal-dark);
+  background: var(--cream);
+  padding: 0.6rem 1.4rem;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: #dedad0; }
+nav.scrolled .nav-cta { background: var(--teal); color: white; }
+nav.scrolled .nav-cta:hover { background: var(--teal-mid); }
+
+/* HERO */
+.hero {
+  min-height: 52vh;
+  background: var(--teal-dark);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  position: relative;
+  overflow: hidden;
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('hero-bg.png');
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.45;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 3.5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250,248,242,0.9);
+  margin-bottom: 1.75rem;
+  display: inline-block;
+  align-self: flex-start;
+  background: rgba(250,248,242,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+.hero-eyebrow::before {
+  content: none;
+}
+.hero h1 {
+  font-family: 'Radley', serif;
+  font-size: clamp(3.2rem, 6vw, 5.5rem);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: rgba(250,248,242,0.7);
+}
+.hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(250,248,242,0.65);
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  margin-bottom: 2.75rem;
+  max-width: 420px;
+}
+.hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.btn-primary {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--teal-dark);
+  background: var(--cream);
+  padding: 0.85rem 1.75rem;
+  border-radius: 100px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: #e8e4db; transform: translateY(-1px); }
+.btn-ghost-light {
+  font-family: 'Radley', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(250,248,242,0.6);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s, gap 0.2s;
+}
+.btn-ghost-light:hover { color: var(--cream); gap: 0.7rem; }
+
+
+/* MARQUEE */
+.marquee-wrap {
+  background: var(--cream);
+  padding: 1.4rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  animation: marquee 55s linear infinite;
+}
+.marquee-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--text);
+  padding: 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.marquee-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: var(--muted);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* SECTIONS */
+section { padding: 8rem 3.5rem; }
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* TRANSITION SECTION */
+.transition-section {
+  background: var(--cream-warm);
+  padding: 9rem 3.5rem 14rem;
+}
+.transition-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.transition-heading {
+  font-family: 'Radley', serif;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  max-width: 820px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+.transition-heading em {
+  font-style: italic;
+  color: var(--teal);
+}
+/* FROM-TO ANIMATED */
+.from-to {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 2rem 0 0;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.from-col { text-align: center; }
+.to-col { text-align: center; }
+.ft-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.fta-words {
+  position: relative;
+  height: clamp(3.2rem, 5.5vw, 5rem);
+}
+.fta-word {
+  font-family: 'Radley', serif;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  white-space: nowrap;
+}
+.fta-word.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.from-col .fta-word { color: #003e53; }
+.to-col .fta-word { color: var(--text); }
+.ft-arrow-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+}
+.ft-arrow-icon {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+/* DATA POINTS */
+.data-section {
+  background: var(--cream);
+  padding: 7rem 3.5rem 5rem;
+}
+.data-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.data-headline {
+  font-family: 'Radley', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+.data-headline em { font-style: italic; color: var(--teal); }
+.data-subhead {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+}
+.data-card {
+  padding: 3rem 2rem;
+  text-align: center;
+  border-right: 0.5px solid var(--border);
+}
+.data-card:last-child { border-right: none; }
+.data-card-img, .data-card-overlay, .data-card-pill { display: none; }
+.data-number {
+  font-family: 'Radley', serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.data-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.data-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+/* PACKAGES HEADLINE */
+.packages-headline {
+  max-width: 1100px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+.packages-headline h2 {
+  font-family: 'Radley', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+.packages-headline h2 em { font-style: italic; color: var(--teal); }
+.packages-headline p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* PACKAGES */
+.packages-section {
+  background: var(--cream);
+  padding: 9rem 3.5rem;
+}
+.packages-inner { max-width: 1100px; margin: 0 auto; }
+.packages-container {
+  position: relative;
+  border-radius: var(--r);
+  overflow: hidden;
+  background-image: url('packages-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 32px;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+}
+.packages-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,30,40,0.18) 0%, rgba(0,30,40,0.42) 100%);
+  pointer-events: none;
+}
+.packages-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 28px;
+  height: 100%;
+  flex: 1;
+}
+.packages-panel {
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 28px;
+  padding: 24px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.panel-label {
+  font-family: 'Radley', serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.95);
+  padding: 6px 16px 18px;
+}
+.package-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+  padding: 17px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+  user-select: none;
+}
+.package-item:hover { background: rgba(255,255,255,0.12); }
+.package-item.active { background: var(--teal); color: #fff; font-weight: 600; }
+.description-panel {
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 28px;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.package-title {
+  font-family: 'Radley', serif;
+  font-size: 2.3rem;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.package-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+  max-width: 540px;
+  margin-bottom: 26px;
+}
+.pkg-services-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 14px;
+}
+.bubbles { display: flex; flex-wrap: wrap; gap: 10px; }
+.bubble {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(62,170,172,0.35);
+  border: 1px solid rgba(62,170,172,0.6);
+  backdrop-filter: blur(6px);
+  padding: 10px 20px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* WHY US */
+.why-section {
+  background: var(--cream);
+  padding: 9rem 3.5rem;
+}
+.why-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: start;
+}
+.why-left h2 {
+  font-family: 'Radley', serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+.why-left h2 em { font-style: italic; color: var(--teal); }
+.why-left p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+}
+.why-points {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+}
+.why-point {
+  padding: 1.4rem 0;
+  border-bottom: 0.5px solid var(--border);
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.why-point.visible { opacity: 1; transform: none; }
+.why-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  padding-top: 0.35rem;
+}
+.why-point-text h4 {
+  font-family: 'Radley', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+  font-style: italic;
+}
+.why-point-text p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.why-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 6rem;
+}
+.why-img-main {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--teal-dark);
+  position: relative;
+}
+.why-img-main img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+.why-img-main img.active {
+  opacity: 1;
+}
+.why-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.stat-pill {
+  background: var(--cream-warm);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.stat-num {
+  font-family: 'Radley', serif;
+  font-size: 2rem;
+  color: var(--teal);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* SERVICES */
+.services-section {
+  background: var(--teal-dark);
+  padding: 9rem 3.5rem;
+  border-radius: var(--r);
+  margin: 0 1.5rem;
+}
+.services-inner { max-width: 1100px; margin: 0 auto; }
+.services-top {
+  display: block;
+  margin-bottom: 2.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.services-heading {
+  font-family: 'Radley', serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.services-heading em {
+  font-style: italic;
+  color: rgba(250,248,242,1);
+}
+.services-intro {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(250,248,242,0.5);
+  line-height: 1.85;
+  align-self: end;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2.5rem;
+}
+.service-col {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.service-col.visible { opacity: 1; transform: none; }
+.service-col h3 {
+  font-family: 'Radley', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--cream);
+  margin-bottom: 1.2rem;
+}
+.service-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.service-col li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-style: normal;
+  font-weight: 300;
+  color: rgba(250,248,242,0.75);
+  line-height: 1.5;
+}
+.service-col li::before {
+  content: none;
+}
+.services-second-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2.5rem;
+  margin-top: 3rem;
+}
+.services-cta {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 0.5px solid rgba(250,248,242,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.services-cta p {
+  font-family: 'Radley', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(250,248,242,1);
+}
+.btn-outline-light {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  border: 0.5px solid rgba(250,248,242,0.3);
+  padding: 0.85rem 1.75rem;
+  border-radius: 100px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline-light:hover {
+  border-color: rgba(250,248,242,0.7);
+  background: rgba(250,248,242,0.07);
+}
+
+/* IMAGE ROW */
+.image-row {
+  background: var(--cream);
+  padding: 3rem 0;
+  overflow: hidden;
+}
+.image-row-track {
+  display: flex;
+  gap: 1.2rem;
+  width: max-content;
+  animation: imageScroll 28s linear infinite;
+}
+.image-row:hover .image-row-track {
+  animation-play-state: paused;
+}
+@keyframes imageScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.image-row-item {
+  flex: 0 0 420px;
+  aspect-ratio: 4/3;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--teal-dark);
+}
+.image-row-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.image-row-item:hover img { transform: scale(1.04); }
+
+/* PROCESS */
+.process-section {
+  background: var(--cream);
+  padding: 9rem 3.5rem;
+}
+.process-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.process-sticky {
+  position: sticky;
+  top: 8rem;
+}
+.process-sticky h2 {
+  font-family: 'Radley', serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+.process-sticky h2 em { font-style: italic; color: var(--teal); }
+.process-sticky p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.85;
+}
+.process-cards {
+  display: flex;
+  flex-direction: column;
+}
+.process-card {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0 1.5rem;
+  padding: 2rem 0;
+  border-top: 0.5px solid var(--border);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s;
+  background: none;
+  border-radius: 0;
+}
+.process-card:last-child { border-bottom: 0.5px solid var(--border); }
+.process-card.visible { opacity: 1; transform: none; }
+.process-card-watermark { display: none; }
+.step-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--muted);
+  padding-top: 0.2rem;
+  letter-spacing: 0.05em;
+}
+.process-card h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.process-card p {
+  font-family: 'Radley', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* AUDIT */
+.audit-section {
+  background: var(--cream);
+  padding: 9rem 3.5rem;
+}
+.audit-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.audit-text .eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.audit-text .eyebrow::before {
+  content: '';
+  width: 22px; height: 1px;
+  background: var(--teal);
+}
+.audit-text h2 {
+  font-family: 'Radley', serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+.audit-text h2 em { font-style: italic; }
+.audit-text p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.audit-card {
+  background-image: url('audit-bg.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--r);
+  padding: 3rem;
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.audit-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 45, 40, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: var(--r);
+  z-index: 0;
+}
+.audit-card > * {
+  position: relative;
+  z-index: 1;
+}
+.audit-price {
+  font-family: 'Radley', serif;
+  font-size: 4.5rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+.audit-price-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(250,248,242,0.45);
+  letter-spacing: 0.06em;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+.audit-includes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2.75rem;
+  border-top: none;
+  padding-top: 1.75rem;
+}
+.audit-includes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(250,248,242,0.7);
+  line-height: 1.5;
+}
+.audit-includes li::before { display: none; }
+.audit-arrow {
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+  color: rgba(250,248,242,0.7);
+}
+.audit-recovery {
+  font-family: 'Radley', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(250,248,242,0.4);
+  margin-bottom: 2rem;
+}
+.btn-teal-fill {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  background: var(--teal);
+  color: white;
+  padding: 0.9rem 1.75rem;
+  border-radius: 100px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+.btn-teal-fill:hover { background: var(--teal-mid); }
+
+/* CONTACT / FOOTER */
+.contact-section {
+  background: var(--teal-dark);
+  padding: 9rem 3.5rem 4rem;
+  border-radius: var(--r) var(--r) 0 0;
+  margin-top: 1.5rem;
+}
+.contact-inner { max-width: 1100px; margin: 0 auto; }
+.contact-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: start;
+  margin-bottom: 6rem;
+}
+.contact-left h2 {
+  font-family: 'Radley', serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+.contact-left h2 em { font-style: italic; color: rgba(250,248,242,0.45); }
+.contact-left p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(250,248,242,0.45);
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+}
+.contact-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: gap 0.2s;
+}
+.contact-link:hover { gap: 1.1rem; }
+.contact-link::after { content: '→'; }
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-field label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(250,248,242,0.35);
+}
+.form-field input,
+.form-field textarea {
+  background: rgba(250,248,242,0.06);
+  border: 0.5px solid rgba(250,248,242,0.15);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  font-family: 'Radley', serif;
+  font-size: 0.92rem;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgba(250,248,242,0.25);
+  font-style: italic;
+}
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: rgba(250,248,242,0.4);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.btn-form {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  background: var(--cream);
+  color: var(--teal-dark);
+  padding: 0.9rem 1.75rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+.btn-form:hover { background: #e8e4db; }
+
+.footer-bottom {
+  border-top: 0.5px solid rgba(250,248,242,0.1);
+  padding-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(250,248,242,0.4);
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.footer-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(250,248,242,0.3);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(250,248,242,0.7); }
+.footer-copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  color: rgba(250,248,242,0.2);
+  letter-spacing: 0.04em;
+}
+
+/* EYEBROW SHARED */
+.eyebrow-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow-tag::before {
+  content: '';
+  width: 22px; height: 1px;
+  background: var(--muted);
+}
+.eyebrow-tag.teal { color: var(--teal); }
+.eyebrow-tag.teal::before { background: var(--teal); }
+
+/* REVEAL ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* SCROLL PROGRESS */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--olive);
+  z-index: 200;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* HAMBURGER BUTTON */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+nav.scrolled .nav-hamburger span { background: var(--text); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--cream);
+  z-index: 99;
+  padding-top: 5rem;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+}
+.mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+.mobile-menu-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 2.5rem;
+  gap: 0;
+}
+.mobile-nav-link {
+  font-family: 'Radley', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+  padding: 1rem 0;
+  border-bottom: 0.5px solid var(--border);
+  letter-spacing: -0.01em;
+  transition: color 0.2s;
+}
+.mobile-nav-link:hover { color: var(--teal); }
+.mobile-nav-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--teal);
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.2s;
+}
+.mobile-nav-cta:hover { opacity: 0.85; }
+
+/* ==============================
+   MOBILE & TABLET RESPONSIVE
+   ============================== */
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav { padding: 1.2rem 1.5rem; }
+  nav.scrolled { padding: 0.9rem 1.5rem; }
+  .nav-right { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* HERO */
+  .hero { min-height: 75vh; }
+  .hero-content { padding: 5rem 1.5rem 2.5rem; }
+  .hero h1 { font-size: clamp(2.4rem, 9vw, 3.5rem); max-width: 100%; }
+  .hero-sub { font-size: 0.88rem; }
+  .hero-btns { width: 100%; }
+  .btn-primary { font-size: 0.78rem; padding: 0.9rem 1.4rem; width: 100%; text-align: center; justify-content: center; display: flex; align-items: center; }
+
+  /* DATA STATS */
+  .data-section { padding: 4rem 1.5rem 3rem; }
+  .data-grid { grid-template-columns: 1fr; }
+  .data-card { border-right: none; border-bottom: 0.5px solid var(--border); padding: 2rem 1.5rem; }
+  .data-card:last-child { border-bottom: none; }
+  .data-number { font-size: 3rem; }
+
+  /* MARQUEE */
+  .marquee-wrap { padding: 1rem 0; }
+
+  /* WHO WE ARE */
+  .why-section { padding: 4rem 1.5rem; }
+  .why-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .why-img-main { height: 280px; }
+
+  /* TRANSITION / SHIFT */
+  .transition-section { padding: 5rem 1.5rem 7rem; }
+  .transition-heading h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+  .from-to { grid-template-columns: 1fr 50px 1fr; max-width: 100%; }
+  .fta-word { font-size: clamp(1.8rem, 8vw, 3rem); }
+
+  /* PACKAGES */
+  .packages-section { padding: 4rem 1.5rem; }
+  .packages-headline { margin-bottom: 1.5rem; }
+  .packages-headline h2 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .packages-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .packages-container { padding: 1.5rem; min-height: auto; }
+  .packages-panel { border-radius: 20px; padding: 16px 8px; }
+  .panel-label { font-size: 1.3rem; padding: 4px 12px 12px; }
+  .package-item { font-size: 0.9rem; padding: 12px 14px; }
+  .description-panel { border-radius: 20px; padding: 1.5rem; }
+  .package-title { font-size: 1.6rem; }
+  .package-desc { font-size: 0.9rem; }
+  .bubbles { gap: 8px; }
+  .bubble { font-size: 0.8rem; padding: 7px 14px; }
+
+  /* SERVICES */
+  .services-section { padding: 4rem 1.5rem; }
+  .services-top { margin-bottom: 1.5rem; }
+  .services-heading { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+  .service-col h3 { font-size: 1rem; }
+  .services-second-row,
+  .services-section > div > div:first-child > div { grid-template-columns: 1fr 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr !important; gap: 2rem 1.5rem; }
+  .services-cta { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
+
+  /* PROCESS / HOW WE WORK */
+  .process-section { padding: 4rem 1.5rem; }
+  .process-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .process-sticky { position: static; }
+  .process-sticky h2 { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+
+  /* AUDIT */
+  .audit-section { padding: 4rem 1.5rem; }
+  .audit-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .audit-card { min-height: 360px; }
+  .audit-text h2 { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+
+  /* CONTACT / FOOTER */
+  .contact-section { padding: 4rem 1.5rem 0; }
+  .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-top { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3rem; }
+  .contact-left h2 { font-size: clamp(2rem, 8vw, 3rem); }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { width: 100%; }
+  .btn-form { width: 100%; justify-content: center; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .packages-grid { gap: 0.75rem; }
+  .data-number { font-size: 2.6rem; }
+  .services-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="progress-bar" id="progress"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#top" class="nav-logo">Flowgrow</a>
+  <div class="nav-right">
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#process" class="nav-link">How it works</a>
+    <a href="#audit" class="nav-link">Audit</a>
+    <a href="#contact" class="nav-cta">Say hello</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="#services" class="mobile-nav-link" onclick="closeMobileMenu()">Services</a>
+    <a href="#process" class="mobile-nav-link" onclick="closeMobileMenu()">How it works</a>
+    <a href="#audit" class="mobile-nav-link" onclick="closeMobileMenu()">Audit</a>
+    <a href="#contact" class="mobile-nav-cta" onclick="closeMobileMenu()">Say hello →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-img" id="heroImg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>marketing for the <em>next generation</em> of studio owners.</h1>
+    <p class="hero-sub">Growth marketing systems for boutique studios. Less Chaos. More Members. Predictable Revenue.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Schedule a free consultation <svg style="display:inline-block;vertical-align:middle;margin-left:0.5rem" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+
+</section>
+
+<!-- DATA SECTION -->
+<section class="data-section">
+  <div class="data-inner">
+    <h2 class="data-headline"><em>studio growth</em> in motion</h2>
+    <p class="data-subhead">Outcomes, from studios already running the system.</p>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="data-number">34%</div>
+        <div class="data-label">More Drop-Ins Become Members</div>
+        <div class="data-desc">The average lift in first-time visitors who convert into paying monthly members after the 90-day system.</div>
+      </div>
+      <div class="data-card">
+        <div class="data-number">30%</div>
+        <div class="data-label">Higher Event Attendance</div>
+        <div class="data-desc">The average lift in workshop and special-event attendance using our 3-week promotional runway.</div>
+      </div>
+      <div class="data-card">
+        <div class="data-number">100+ hrs</div>
+        <div class="data-label">Saved Every Month</div>
+        <div class="data-desc">Time given back to studio owners once marketing, content, and reporting are fully systemized.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Growth Strategy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Batch Content Creation <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Paid Digital Advertising <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Brand & Identity <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Social Media Management <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Member Retention <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Retreat & Event Marketing <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Automation Systems <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Growth Strategy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Batch Content Creation <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Paid Digital Advertising <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Brand & Identity <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Social Media Management <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Member Retention <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Retreat & Event Marketing <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Automation Systems <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- WHO WE ARE -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-left">
+      <div class="eyebrow-tag teal reveal">Who we are</div>
+      <h2 class="reveal">A marketing team built<br>for <em>boutique studios.</em></h2>
+      <p class="reveal">We're not social media managers. We're growth marketers who work like an in-house team — with strategy, systems, and real accountability to your revenue.</p>
+      <p class="reveal">Most studios are run by passionate people without marketing backgrounds. We built FlowGrow specifically to solve for that gap.</p>
+      <ul class="why-points">
+        <li class="why-point">
+          <span class="why-num">01</span>
+          <div class="why-point-text">
+            <h4>We listen before we build</h4>
+            <p>We learn your studio's ethos, your teaching philosophy, and the community you've built before touching anything.</p>
+          </div>
+        </li>
+        <li class="why-point">
+          <span class="why-num">02</span>
+          <div class="why-point-text">
+            <h4>We build infrastructure, not campaigns</h4>
+            <p>Systems that outlast any single person. A quarterly rhythm that turns chaos into predictable output.</p>
+          </div>
+        </li>
+        <li class="why-point">
+          <span class="why-num">03</span>
+          <div class="why-point-text">
+            <h4>We handle everything on a screen</h4>
+            <p>Content, captions, ads, email campaigns. You get all the output with none of the daily effort.</p>
+          </div>
+        </li>
+        <li class="why-point">
+          <span class="why-num">04</span>
+          <div class="why-point-text">
+            <h4>Partners, not vendors</h4>
+            <p>We're invested in your growth the same way you are — which means we care about the outcome, not just marketing output.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="why-right">
+      <div class="why-img-main reveal" id="whoWeAreSlider">
+        <img src="who-we-are-1.jpg" alt="" class="active" />
+        <img src="who-we-are-2.png" alt="" />
+        <img src="who-we-are-3.png" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSITION -->
+<section class="transition-section">
+  <div class="transition-inner">
+    <h2 class="transition-heading reveal">The studios that thrive in the next decade won't be the ones who post more. They'll be the ones with a <em>growth system behind them.</em></h2>
+    <div class="from-to reveal">
+      <div class="from-col">
+        <div class="ft-label">Without a system</div>
+        <div class="fta-words">
+          <span class="fta-word active">Reactive</span>
+          <span class="fta-word">Scattered</span>
+          <span class="fta-word">Vacant</span>
+          <span class="fta-word">Invisible</span>
+          <span class="fta-word">Guessing</span>
+        </div>
+      </div>
+      <div class="ft-arrow-col">
+        <div class="ft-arrow-icon">
+          <svg width="72" height="20" viewBox="0 0 72 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="62" y2="10" stroke="currentColor" stroke-width="1"/>
+            <polyline points="54,3 62,10 54,17" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="to-col">
+        <div class="ft-label">With FlowGrow</div>
+        <div class="fta-words">
+          <span class="fta-word active">Intentional</span>
+          <span class="fta-word">Systematic</span>
+          <span class="fta-word">Booked</span>
+          <span class="fta-word">Visible</span>
+          <span class="fta-word">Measuring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PACKAGES -->
+<section class="packages-section">
+  <div class="packages-inner">
+    <div class="packages-headline">
+      <h2>Choose your path to <em>growth.</em></h2>
+      <p>We've mapped the path. You just pick where to start.</p>
+    </div>
+    <div class="packages-container">
+      <div class="packages-grid">
+        <div class="packages-panel">
+          <div class="panel-label">Packages</div>
+          <div class="package-item active" data-key="batch">Batch Content Creation</div>
+          <div class="package-item" data-key="social">Social Media Management</div>
+          <div class="package-item" data-key="acquisition">Member Acquisition</div>
+          <div class="package-item" data-key="retention">Member Retention</div>
+          <div class="package-item" data-key="merch">Merch</div>
+        </div>
+        <div class="description-panel">
+          <div>
+            <div class="package-title" id="pkgTitle">Batch Content Creation</div>
+            <div class="package-desc" id="pkgDesc">One day, a full quarter of content. We plan, shoot, and edit everything your studio needs to post for the next three months — so you're never scrambling for a photo or caption again.</div>
+          </div>
+          <div>
+            <div class="pkg-services-label">What's Included</div>
+            <div class="bubbles" id="pkgBubbles">
+              <span class="bubble">Content Strategy</span>
+              <span class="bubble">Media Day</span>
+              <span class="bubble">Photo Shoot</span>
+              <span class="bubble">Video Shoot</span>
+              <span class="bubble">Editing</span>
+              <span class="bubble">Captions</span>
+              <span class="bubble">Content Calendar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="process-inner">
+    <div class="process-sticky">
+      <div class="eyebrow-tag teal reveal">How we work</div>
+      <h2 class="reveal">A partnership,<br>not just <em>an agency.</em></h2>
+      <p class="reveal">We don't just execute tasks. We build infrastructure. A dedicated growth team that understands boutique studio ownership — designed to remove the mental load so you can lead.</p>
+    </div>
+    <div class="process-cards">
+      <div class="process-card">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Listen first</h3>
+          <p>We learn your studio's ethos, your teaching philosophy, and the energy you've built. We don't guess your vibe — we listen to it.</p>
+        </div>
+      </div>
+      <div class="process-card">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Build infrastructure</h3>
+          <p>A quarterly content calendar, a clear messaging framework, and documented systems that outlast any single person on the team.</p>
+        </div>
+      </div>
+      <div class="process-card">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Handle everything</h3>
+          <p>Content creation, captions, targeted ads, enrollment campaigns. You get all the output with none of the daily effort.</p>
+        </div>
+      </div>
+      <div class="process-card">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Compound the results</h3>
+          <p>With a predictable rhythm in place, growth becomes intentional. Revenue clarity. Financial stability. Space to lead.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="services-top">
+      <h2 class="services-heading reveal">We grow the studios building <em>wellness communities</em><br>through:</h2>
+
+    </div>
+    <div class="services-grid">
+      <div class="service-col">
+        <h3>Strategy & Insights</h3>
+        <ul>
+          <li>Market & Competitive Analysis</li>
+          <li>Audience Definition & ICP</li>
+          <li>Offer & Pricing Analysis</li>
+          <li>Booking Health & Revenue Audit</li>
+          <li>Marketing Funnel Review</li>
+        </ul>
+      </div>
+      <div class="service-col">
+        <h3>Brand & Identity</h3>
+        <ul>
+          <li>Positioning & Messaging</li>
+          <li>Naming</li>
+          <li>Visual & Verbal Identity</li>
+          <li>Architecture</li>
+          <li>Social Profile Buildout</li>
+        </ul>
+      </div>
+      <div class="service-col">
+        <h3>Content & Production</h3>
+        <ul>
+          <li>Creative Development</li>
+          <li>Quarterly Content Strategy</li>
+          <li>Media Production</li>
+          <li>Influencer & Creator</li>
+          <li>Channel Management</li>
+        </ul>
+      </div>
+      <div class="service-col">
+        <h3>Digital Experience</h3>
+        <ul>
+          <li>User Journey Mapping</li>
+          <li>Content Architecture</li>
+          <li>Conversion Optimization</li>
+          <li>UX & UI Design</li>
+          <li>Funnel Optimization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="services-second-row">
+      <div class="service-col">
+        <h3>Campaigns & Growth</h3>
+        <ul>
+          <li>Performance Advertising</li>
+          <li>Member Acquisition</li>
+          <li>Retreat, Event & Workshop Marketing</li>
+          <li>Offer & Launch Campaigns</li>
+        </ul>
+      </div>
+      <div class="service-col">
+        <h3>Retention & Automation</h3>
+        <ul>
+          <li>Email & SMS Sequences</li>
+          <li>Member Onboarding</li>
+          <li>Re-engagement Campaigns</li>
+          <li>Booking Funnel Optimization</li>
+        </ul>
+      </div>
+      <div class="service-col">
+        <h3>Measurement</h3>
+        <ul>
+          <li>Tracking & Lifecycle Metrics</li>
+          <li>Category & Audience Sizing</li>
+          <li>Performance Reporting</li>
+          <li>Brand Refresh</li>
+        </ul>
+      </div>
+      <div class="service-col">
+        <h3>Social & Community</h3>
+        <ul>
+          <li>Community Engagement</li>
+          <li>Profile & Template Systems</li>
+          <li>UGC Strategy</li>
+          <li>Content Calendar Execution</li>
+        </ul>
+      </div>
+    </div>
+    <div class="services-cta">
+      <p>Not sure which services you need? Start with the audit.</p>
+      <a href="#contact" class="btn-outline-light">Get in touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT -->
+<section class="audit-section" id="audit">
+  <div class="audit-inner">
+    <div class="audit-text">
+      <div class="eyebrow reveal">Start here</div>
+      <h2 class="reveal">Not sure<br>where to start?</h2>
+      <p class="reveal">A deep dive across all five areas of your studio — positioning, demand, conversion, retention, and operations.</p>
+      <p class="reveal">You get a full written report and a 45-minute readout call walking you through exactly where your revenue gaps are.</p>
+      <p class="reveal" style="font-family:'Radley',serif; font-style:italic; color:#003e53; font-size:1.05rem; margin-top:1.5rem;">Most studios identify $2k–$8k per month in recoverable revenue.</p>
+    </div>
+    <div class="audit-card reveal">
+      <div class="audit-price">$350</div>
+      <ul class="audit-includes">
+        <li><svg class="audit-arrow" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>Full written audit report across 5 areas</li>
+        <li><svg class="audit-arrow" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>Competitive analysis of 3–5 benchmark studios in your market</li>
+        <li><svg class="audit-arrow" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>Booking health & revenue gap analysis</li>
+        <li><svg class="audit-arrow" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>Offer & pricing benchmark vs. competitors</li>
+        <li><svg class="audit-arrow" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>45-minute readout call with our team</li>
+      </ul>
+      <a href="#contact" class="btn-teal-fill">Find my revenue gaps →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-top">
+      <div class="contact-left">
+        <div class="eyebrow-tag reveal" style="color:rgba(250,248,242,0.35);">
+          Get in touch
+        </div>
+        <h2 class="reveal">How can<br>we <em>help?</em></h2>
+        <p class="reveal">We're selective about who we work with — because we want to genuinely move the needle for every studio we partner with. Tell us about yours.</p>
+        <a href="mailto:hello@flowgrowagency.com" class="contact-link reveal">hello@flowgrowagency.com</a>
+      </div>
+      <form class="contact-form reveal" action="https://formspree.io/f/maqzazaw" method="POST">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-field">
+            <label for="studio">Studio name</label>
+            <input type="text" id="studio" name="studio" placeholder="Studio name" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@yourstudio.com" required />
+        </div>
+        <div class="form-field">
+          <label for="message">Tell us about your studio</label>
+          <textarea id="message" name="message" rows="5" placeholder="Where are you at, what are your goals, what's not working..."></textarea>
+        </div>
+        <button type="submit" class="btn-form">Send it →</button>
+      </form>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-logo">Flowgrow</span>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">How it works</a></li>
+        <li><a href="#audit">Audit</a></li>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 FlowGrow Agency</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress').style.width = p + '%';
+});
+
+// Hero parallax
+const heroImg = document.getElementById('heroImg');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y < window.innerHeight) {
+    heroImg.style.transform = `translateY(${y * 0.25}px)`;
+  }
+});
+
+// Who We Are image crossfade
+(function() {
+  const imgs = document.querySelectorAll('#whoWeAreSlider img');
+  let cur = 0;
+  setInterval(() => {
+    imgs[cur].classList.remove('active');
+    cur = (cur + 1) % imgs.length;
+    imgs[cur].classList.add('active');
+  }, 3500);
+})();
+
+// Mobile menu
+const mobileMenu = document.getElementById('mobileMenu');
+const hamburger = document.getElementById('navHamburger');
+mobileMenu.style.display = 'block';
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
+});
+
+// Packages interactive switcher
+const pkgData = {
+  batch: {
+    title: "Batch Content Creation",
+    desc: "One day, a full quarter of content. We plan, shoot, and edit everything your studio needs to post for the next three months — so you're never scrambling for a photo or caption again.",
+    bubbles: ["Content Strategy","Media Day","Photo Shoot","Video Shoot","Editing","Captions","Content Calendar"]
+  },
+  social: {
+    title: "Social Media Management",
+    desc: "We run your social accounts day to day — posting, engaging, and keeping your feed consistent — so your studio always looks active, professional, and on-brand.",
+    bubbles: ["Daily Posting","Stories","Community Replies","Performance Reporting","Profile Setup","Analytics Tracking"]
+  },
+  acquisition: {
+    title: "Member Acquisition",
+    desc: "A targeted campaign built to bring new faces through your door. We handle the ads, the offer, and the follow-up so new leads actually become booked classes.",
+    bubbles: ["Paid Ads","New Member Offer","Landing Page","Lead Follow-Up","Booking Funnel","Ad Reporting"]
+  },
+  retention: {
+    title: "Member Retention",
+    desc: "Keep the members you already have. We build the emails, texts, and check-ins that catch drop-off early and turn casual visitors into loyal regulars.",
+    bubbles: ["Welcome Sequence","Check-In Emails","Win-Back Texts","Loyalty Rewards","Drop-Off Alerts","Referral Program"]
+  },
+  merch: {
+    title: "Merch",
+    desc: "Turn your studio's biggest fans into walking ads. We design merch your members actually want to wear, then set up the online store and ordering backend so it sells itself.",
+    bubbles: ["Merch Design","Mockups","Print Sourcing","Online Store Setup","Order Management","Inventory Tracking"]
+  }
+};
+document.querySelectorAll('.package-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.package-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    const d = pkgData[item.dataset.key];
+    document.getElementById('pkgTitle').textContent = d.title;
+    document.getElementById('pkgDesc').textContent = d.desc;
+    document.getElementById('pkgBubbles').innerHTML = d.bubbles.map(b => `<span class="bubble">${b}</span>`).join('');
+  });
+});
+
+// From-To word cycling animation
+(function() {
+  const fromWords = document.querySelectorAll('.from-col .fta-word');
+  const toWords   = document.querySelectorAll('.to-col .fta-word');
+  let current = 0;
+  const total = fromWords.length;
+
+  function cycle() {
+    fromWords[current].classList.remove('active');
+    toWords[current].classList.remove('active');
+    current = (current + 1) % total;
+    fromWords[current].classList.add('active');
+    toWords[current].classList.add('active');
+  }
+
+  setInterval(cycle, 2800);
+})();
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal, .why-point, .service-col, .process-card');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), 80 * (e.target.dataset.delay || 0));
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+reveals.forEach((el, i) => {
+  el.dataset.delay = i % 4;
+  io.observe(el);
+});
+</script>
+</body>
+</html>
