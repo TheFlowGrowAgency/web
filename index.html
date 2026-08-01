@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlowGrow | Growth Systems for Boutique Studios</title>
+<title>FlowGrow | Growth Systems for Boutique Wellness Brands</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Radley:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -402,7 +402,7 @@ section { padding: 8rem 3.5rem; }
   font-weight: 400;
   color: var(--text);
   line-height: 1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.1rem;
   letter-spacing: -0.02em;
 }
 .data-label {
@@ -687,11 +687,24 @@ section { padding: 8rem 3.5rem; }
 
 /* SERVICES */
 .services-section {
-  background: var(--teal-dark);
+  position: relative;
+  background-image: url('packages-bg.jpg');
+  background-size: cover;
+  background-position: center;
   padding: 9rem 3.5rem;
   border-radius: var(--r);
   margin: 0 1.5rem;
+  overflow: hidden;
 }
+.services-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,30,40,0.55) 0%, rgba(0,30,40,0.72) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.services-inner { position: relative; z-index: 1; }
 .services-inner { max-width: 1100px; margin: 0 auto; }
 .services-top {
   display: block;
@@ -1215,6 +1228,40 @@ section { padding: 8rem 3.5rem; }
 }
 .reveal.visible { opacity: 1; transform: none; }
 
+/* STICKY BOOK A CALL */
+.sticky-book {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 1.75rem;
+  z-index: 300;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--teal);
+  padding: 0.8rem 1.4rem;
+  border-radius: 20px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0,62,83,0.25);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.sticky-book:hover {
+  background: var(--teal-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0,62,83,0.32);
+}
+@media (max-width: 768px) {
+  .sticky-book {
+    bottom: 1.1rem;
+    left: 1.1rem;
+    font-size: 0.78rem;
+    padding: 0.75rem 1.2rem;
+  }
+}
+
 /* SCROLL PROGRESS */
 .progress-bar {
   position: fixed;
@@ -1302,6 +1349,16 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
 /* ==============================
    MOBILE & TABLET RESPONSIVE
    ============================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .services-section { padding: 6rem 2rem; margin: 0 1rem; }
+  .services-grid, .services-second-row { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 2rem; }
+  .packages-grid { grid-template-columns: 240px 1fr; }
+  .why-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .audit-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .process-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-top { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
 @media (max-width: 768px) {
 
   /* NAV */
@@ -1336,8 +1393,11 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
   /* TRANSITION / SHIFT */
   .transition-section { padding: 5rem 1.5rem 7rem; }
   .transition-heading h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-  .from-to { grid-template-columns: 1fr 50px 1fr; max-width: 100%; }
-  .fta-word { font-size: clamp(1.8rem, 8vw, 3rem); }
+  .from-to { grid-template-columns: 1fr 40px 1fr; max-width: 100%; padding: 1rem 0 0; }
+  .fta-word { font-size: clamp(1.5rem, 7vw, 2.6rem); }
+  .ft-label { font-size: 0.6rem; letter-spacing: 0.12em; }
+  .ft-arrow-icon svg { width: 28px; }
+  .fta-words { height: clamp(2.2rem, 9vw, 3.5rem); }
 
   /* PACKAGES */
   .packages-section { padding: 4rem 1.5rem; }
@@ -1356,9 +1416,45 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
 
   /* SERVICES */
   .services-section { padding: 4rem 1.5rem; }
+  .services-cta { display: none; }
   .services-top { margin-bottom: 1.5rem; }
   .services-heading { font-size: clamp(1.8rem, 7vw, 2.5rem); }
-  .service-col h3 { font-size: 1rem; }
+  .services-grid, .services-second-row { grid-template-columns: 1fr; gap: 0; }
+  .service-col {
+    border-top: 0.5px solid rgba(250,246,234,0.2);
+    padding: 0;
+  }
+  .service-col:last-child { border-bottom: 0.5px solid rgba(250,246,234,0.2); }
+  .service-col h3 {
+    font-size: 1rem;
+    padding: 1.1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+  }
+  .service-col h3::after {
+    content: '+';
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: rgba(250,246,234,0.6);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .service-col.open h3::after { transform: rotate(45deg); }
+  .service-col ul {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0;
+    gap: 0.5rem;
+  }
+  .service-col.open ul {
+    max-height: 300px;
+    padding-bottom: 1.2rem;
+  }
   .services-second-row,
   .services-section > div > div:first-child > div { grid-template-columns: 1fr 1fr; }
   .services-grid { grid-template-columns: 1fr 1fr !important; gap: 2rem 1.5rem; }
@@ -1401,6 +1497,9 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
 <div class="cursor" id="cursor"></div>
 <div class="progress-bar" id="progress"></div>
 
+<!-- STICKY BOOK A CALL -->
+<a href="https://calendly.com/ella-theflowgrowagency/30min" class="sticky-book" target="_blank" rel="noopener noreferrer">Book a call</a>
+
 <!-- NAV -->
 <nav id="nav">
   <a href="#top" class="nav-logo">Flowgrow</a>
@@ -1408,6 +1507,7 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
     <a href="#services" class="nav-link">Services</a>
     <a href="#process" class="nav-link">How it works</a>
     <a href="#audit" class="nav-link">Audit</a>
+    <a href="insights_page.html" class="nav-link">Insights</a>
     <a href="#contact" class="nav-cta">Say hello</a>
   </div>
   <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
@@ -1421,6 +1521,7 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
     <a href="#services" class="mobile-nav-link" onclick="closeMobileMenu()">Services</a>
     <a href="#process" class="mobile-nav-link" onclick="closeMobileMenu()">How it works</a>
     <a href="#audit" class="mobile-nav-link" onclick="closeMobileMenu()">Audit</a>
+    <a href="insights_page.html" class="mobile-nav-link" onclick="closeMobileMenu()">Insights</a>
     <a href="#contact" class="mobile-nav-cta" onclick="closeMobileMenu()">Say hello →</a>
   </div>
 </div>
@@ -1430,8 +1531,8 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
   <div class="hero-img" id="heroImg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1>marketing for the <em>next generation</em> of studio owners.</h1>
-    <p class="hero-sub">Growth marketing systems for boutique studios. Less Chaos. More Members. Predictable Revenue.</p>
+    <h1>marketing for the <em>next generation</em> of wellness brands.</h1>
+    <p class="hero-sub">Growth marketing systems for boutique wellness. Less Chaos. More Members. Predictable Revenue.</p>
     <div class="hero-btns">
       <a href="#contact" class="btn-primary">Schedule a free consultation <svg style="display:inline-block;vertical-align:middle;margin-left:0.5rem" width="36" height="12" viewBox="0 0 36 12" fill="none"><line x1="0" y1="6" x2="29" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="24,2 29,6 24,10" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg></a>
     </div>
@@ -1491,7 +1592,7 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
   <div class="why-inner">
     <div class="why-left">
       <div class="eyebrow-tag teal reveal">Who we are</div>
-      <h2 class="reveal">A marketing team built<br>for <em>boutique studios.</em></h2>
+      <h2 class="reveal">A marketing team built<br>for <em>boutique wellness.</em></h2>
       <p class="reveal">We're not social media managers. We're growth marketers who work like an in-house team — with strategy, systems, and real accountability to your revenue.</p>
       <p class="reveal">Most studios are run by passionate people without marketing backgrounds. We built FlowGrow specifically to solve for that gap.</p>
       <ul class="why-points">
@@ -1499,7 +1600,7 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
           <span class="why-num">01</span>
           <div class="why-point-text">
             <h4>We listen before we build</h4>
-            <p>We learn your studio's ethos, your teaching philosophy, and the community you've built before touching anything.</p>
+            <p>We learn your studio's ethos, your approach to the work, and the community you've built before touching anything.</p>
           </div>
         </li>
         <li class="why-point">
@@ -1538,7 +1639,7 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
 <!-- TRANSITION -->
 <section class="transition-section">
   <div class="transition-inner">
-    <h2 class="transition-heading reveal">The studios that thrive in the next decade won't be the ones who post more. They'll be the ones with a <em>growth system behind them.</em></h2>
+    <h2 class="transition-heading reveal">The wellness brands that thrive in the next decade won't be the ones who post more. They'll be the ones with a <em>growth&nbsp;system behind them.</em></h2>
     <div class="from-to reveal">
       <div class="from-col">
         <div class="ft-label">Without a system</div>
@@ -1626,7 +1727,7 @@ nav.scrolled .nav-hamburger span { background: var(--text); }
         <div class="step-num">01</div>
         <div>
           <h3>Listen first</h3>
-          <p>We learn your studio's ethos, your teaching philosophy, and the energy you've built. We don't guess your vibe — we listen to it.</p>
+          <p>We learn your studio's ethos, your approach to the work, and the energy you've built. We don't guess your vibe — we listen to it.</p>
         </div>
       </div>
       <div class="process-card">
@@ -1871,6 +1972,21 @@ hamburger.addEventListener('click', () => {
   const isOpen = mobileMenu.classList.toggle('open');
   hamburger.setAttribute('aria-expanded', isOpen);
 });
+
+// Services accordion (mobile only)
+function initServicesAccordion() {
+  if (window.innerWidth > 768) return;
+  document.querySelectorAll('.service-col h3').forEach(h3 => {
+    h3.addEventListener('click', () => {
+      const col = h3.parentElement;
+      const isOpen = col.classList.contains('open');
+      document.querySelectorAll('.service-col').forEach(c => c.classList.remove('open'));
+      if (!isOpen) col.classList.add('open');
+    });
+  });
+}
+initServicesAccordion();
+window.addEventListener('resize', initServicesAccordion);
 
 // Packages interactive switcher
 const pkgData = {
